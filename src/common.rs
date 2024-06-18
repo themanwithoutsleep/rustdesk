@@ -853,7 +853,7 @@ pub fn run_me<T: AsRef<std::ffi::OsStr>>(args: Vec<T>) -> std::io::Result<std::p
 #[inline]
 pub fn username() -> String {
     let cutom_username = Config::get_option("cutom_username");
-    if !cutom_username.isempty() {
+    if !cutom_username.is_empty() {
         return String::from(cutom_username);
     }
     // fix bug of whoami
@@ -866,7 +866,7 @@ pub fn username() -> String {
 #[inline]
 pub fn hostname() -> String {
     let cutom_hostname = Config::get_option("cutom_hostname");
-    if !cutom_hostname.isempty() {
+    if !cutom_hostname.is_empty() {
         return String::from(cutom_hostname);
     }
     #[cfg(not(any(target_os = "android", target_os = "ios")))]
