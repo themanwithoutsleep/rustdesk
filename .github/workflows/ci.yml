@@ -8,8 +8,6 @@ env:
   # for multiarch gcc compatibility
   VCPKG_COMMIT_ID: "8eb57355a4ffb410a2e94c07b4dca2dffbee8e50"
 
-on:
-  workflow_dispatch:
 
 jobs:
   # ensure_cargo_fmt:
