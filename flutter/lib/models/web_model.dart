@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_hbb/common/widgets/login.dart';
 import 'package:flutter_hbb/models/state_model.dart';
 
 import 'package:flutter_hbb/web/bridge.dart';
@@ -49,14 +50,15 @@ class PlatformFFI {
   }
 
   bool registerEventHandler(
-      String eventName, String handlerName, HandleEvent handler) {
+      String eventName, String handlerName, HandleEvent handler,
+      {bool replace = false}) {
     debugPrint('registerEventHandler $eventName $handlerName');
     var handlers = _eventHandlers[eventName];
     if (handlers == null) {
       _eventHandlers[eventName] = {handlerName: handler};
       return true;
     } else {
-      if (handlers.containsKey(handlerName)) {
+      if (!replace && handlers.containsKey(handlerName)) {
         return false;
       } else {
         handlers[handlerName] = handler;
@@ -111,6 +113,13 @@ class PlatformFFI {
     Completer completer = Completer();
     context["onInitFinished"] = () {
       completer.complete();
+    };
+    context['loginDialog'] = () {
+      loginDialog();
+    };
+    context['closeConnection'] = () {
+      gFFI.dialogManager.dismissAll();
+      closeConnection();
     };
     context.callMethod('init');
     version = getByName('version');
